@@ -1,8 +1,8 @@
-##Empty project
+##Project 'Organizations'
 
 Repo Link:
 
-https://github.com/VictorD08ru/EmptyProject
+https://github.com/VictorD08ru/Organizations
 
 Example request to running application:
 
