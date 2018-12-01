@@ -9,7 +9,7 @@
   <version>0.0.1</version>
   <packaging>jar</packaging>
 
-  <name>EmptyProject</name>
+  <name>Organizations</name>
 
   <parent>
     <groupId>org.springframework.boot</groupId>
