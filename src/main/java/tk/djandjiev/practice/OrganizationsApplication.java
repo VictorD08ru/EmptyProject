@@ -2,11 +2,13 @@ package tk.djandjiev.practice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
+@EnableAspectJAutoProxy
 @SpringBootApplication
-public class EmptyProjectApplication {
+public class OrganizationsApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(EmptyProjectApplication.class, args);
+    SpringApplication.run(OrganizationsApplication.class, args);
   }
 }
