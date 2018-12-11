@@ -10,4 +10,4 @@ Spring Boot, String Data JPA, Hibernate, JUnit 4
 
 Example request to running application:
 
-http://localhost:8888//swagger-ui.html 
+http://localhost:8888/api/swagger-ui.html 
