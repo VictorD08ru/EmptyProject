@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -17,7 +18,11 @@ import org.springframework.format.annotation.DateTimeFormat;
  * Сущность документа, удостоверяющего личность.
  * */
 @Entity
-@Table
+@Table(indexes = {
+    @Index(
+        name = "document_number_index",
+        columnList = "doc_number")
+})
 @NamedQueries({
     @NamedQuery(name = Document.ALL_SORTED, query = "SELECT d FROM Document d ORDER BY d.id")
 })
@@ -41,9 +46,8 @@ public class Document extends AbstractBaseEntity {
   public Document() {
   }
 
-  public Document(Integer id,
+  public Document(
       @NotNull DocType type, @Size(max = 20) String number, LocalDate issueDate) {
-    super(id);
     this.type = type;
     this.number = number;
     this.issueDate = issueDate;

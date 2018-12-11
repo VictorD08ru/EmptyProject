@@ -3,6 +3,7 @@ package tk.djandjiev.practice.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -18,7 +19,11 @@ import org.hibernate.annotations.OnDeleteAction;
  * Сущность офиса соответствующей организации.
  * */
 @Entity
-@Table
+@Table(indexes = {
+    @Index(
+        name = "office_name_index",
+        columnList = "name")
+})
 @NamedQueries({
     @NamedQuery(name = Office.ALL_SORTED, 
         query = "SELECT o FROM Office o WHERE o.organization.id = ?1 ORDER BY o.name")
@@ -54,12 +59,11 @@ public class Office extends AbstractBaseEntity {
   public Office() {
   }
 
-  public Office(Integer id,
+  public Office(
       @NotBlank @Size(max = 255) String name,
       @NotBlank @Size(max = 255) String address,
-      @Size(max = 20) String phone, Boolean isActive,
+      @Size(max = 20) String phone, @NotNull Boolean isActive,
       @NotNull Organization organization) {
-    super(id);
     this.name = name;
     this.address = address;
     this.phone = phone;

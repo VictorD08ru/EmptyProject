@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -18,7 +19,11 @@ import javax.validation.constraints.Size;
  * Сущность пользователя.
  * */
 @Entity
-@Table
+@Table(indexes = {
+    @Index(
+        name = "user_first_name_index",
+        columnList = "first_name")
+})
 @NamedQueries({
     @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.firstName")
 })
@@ -67,14 +72,13 @@ public class User extends AbstractBaseEntity {
   public User() {
   }
 
-  public User(Integer id,
+  public User(
       @NotBlank @Size(max = 100) String firstName,
       @Size(max = 100) String secondName,
       @Size(max = 100) String middleName,
       @NotBlank @Size(max = 255) String position,
       @Size(max = 20) String phone, Document document, Document country,
       @NotNull Boolean isDefined, Office office) {
-    super(id);
     this.firstName = firstName;
     this.secondName = secondName;
     this.middleName = middleName;

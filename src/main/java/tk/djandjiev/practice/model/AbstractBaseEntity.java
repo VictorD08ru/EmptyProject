@@ -1,6 +1,5 @@
 package tk.djandjiev.practice.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
@@ -14,25 +13,14 @@ import javax.persistence.MappedSuperclass;
  * */
 @MappedSuperclass
 @Access(AccessType.FIELD)
-public abstract class AbstractBaseEntity implements Serializable {
+public abstract class AbstractBaseEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected Integer id;
-
-  protected AbstractBaseEntity() {
-  }
-
-  protected AbstractBaseEntity(Integer id) {
-    this.id = id;
-  }
 
   public Integer getId() {
     return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
   }
 
   @Override

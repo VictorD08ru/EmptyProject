@@ -2,6 +2,7 @@ package tk.djandjiev.practice.util;
 
 import org.springframework.util.Assert;
 import tk.djandjiev.practice.model.AbstractBaseEntity;
+
 /**
  * Класс упрощения валидации объектов.
  * */

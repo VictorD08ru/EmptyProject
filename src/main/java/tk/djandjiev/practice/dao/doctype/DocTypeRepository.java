@@ -11,22 +11,8 @@ public interface DocTypeRepository {
 
   /**
    * Получить все объекты DocType.
-   * @return
+   * @return список типов документов, удостоверяющих личность, из справочника.
    * */
   @Query("SELECT d FROM DocType d ORDER BY d.code")
   List<DocType> getAll();
-
-  /**
-   * Получить объект DocType по идентификатору.
-   * @param id
-   * @return
-   * */
-  DocType get(Integer id);
-
-  /**
-   * Получить объект DocType по коду.
-   * @param code
-   * @return
-   * */
-  DocType getByCode(String code);
 }

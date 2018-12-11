@@ -2,6 +2,7 @@ package tk.djandjiev.practice.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -10,7 +11,15 @@ import javax.validation.constraints.Size;
  * Сущность организации.
  * */
 @Entity
-@Table
+@Table(indexes = {
+    @Index(
+        name = "organization_name_index",
+        columnList = "name"),
+    @Index(
+        name = "organization_name_inn_unique_index",
+        columnList = "name, inn",
+        unique = true)
+})
 public class Organization extends AbstractBaseEntity {
 
   @NotBlank
@@ -48,14 +57,13 @@ public class Organization extends AbstractBaseEntity {
   public Organization() {
   }
 
-  public Organization(Integer id,
+  public Organization(
       @NotBlank @Size(max = 255) String name,
       @NotBlank @Size(max = 255) String fullName,
       @NotBlank @Size(min = 10, max = 10) String inn,
       @NotBlank @Size(min = 9, max = 9) String kpp,
       @NotBlank @Size(max = 255) String address,
       @Size(max = 20) String phone, Boolean isActive) {
-    super(id);
     this.name = name;
     this.fullName = fullName;
     this.inn = inn;
@@ -113,11 +121,11 @@ public class Organization extends AbstractBaseEntity {
     this.phone = phone;
   }
 
-  public Boolean getActive() {
+  public Boolean getIsActive() {
     return isActive;
   }
 
-  public void setActive(Boolean active) {
-    isActive = active;
+  public void setIsActive(Boolean isActive) {
+    this.isActive = isActive;
   }
 }

@@ -10,22 +10,22 @@ public interface OfficeRepository {
 
   /**
    * Получить все объекты Office по идентификатору Organization.
-   * @return
+   * @return список офисов организации.
    * */
   List<Office> getAll(Integer organizationId);
 
   /**
-   * Получить объект Office по cобственному идентификатору и идентификатору Organization.
+   * Получить объект Office по собственному идентификатору и идентификатору Organization.
    * @param id
-   * @return
+   * @return объект Office.
    * */
   Office get(Integer id);
 
   /**
    * Сохранить Office.
    * @param office
-   * @param organizationId
-   * @return
+   * @param organizationId идентификатор организации, которой принадлежит офис.
+   * @return сохраненный объект.
    * */
   Office save(Office office, Integer organizationId);
 }

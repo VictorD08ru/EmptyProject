@@ -11,16 +11,16 @@ public interface OrganizationRepository {
 
   /**
    * Получить все объекты Organization.
-   * @param name
-   * @param inn
-   * @param isActive
-   * @return
+   * @param name название организации,
+   * @param inn ИНН организации,
+   * @param isActive работает ли организация.
+   * @return список организаций в соответствии с параметрами запроса
    * */
   List<Organization> getAll(@NotNull String name, String inn, Boolean isActive);
 
   /**
    * Получить объект Organization по идентификатору.
-   * @param id
+   * @param id идентификатор организации.
    * @return
    * */
   Organization get(Integer id);

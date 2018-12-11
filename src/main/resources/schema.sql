@@ -1,19 +1,22 @@
+--Тип документа
 CREATE TABLE IF NOT EXISTS Doc_type (
 	id               INTEGER AUTO_INCREMENT (10000, 1) PRIMARY KEY,
 	code             VARCHAR(10) ,
-	name             VARCHAR(255),
-	CONSTRAINT doc_type_code UNIQUE (code)
+	name             VARCHAR(255)
 );
 COMMENT ON TABLE Doc_type IS 'Справочник: Тип документа';
+CREATE UNIQUE INDEX IF NOT EXISTS doc_type_unique_code ON Doc_type (code);
 
+--Страна
 CREATE TABLE IF NOT EXISTS Country (
 	id               INTEGER AUTO_INCREMENT (10000, 1) PRIMARY KEY,
 	code             VARCHAR(10),
-	name             VARCHAR(255),
-	CONSTRAINT country_code UNIQUE (code)
+	name             VARCHAR(255)
 );
-COMMENT ON TABLE Doc_type IS 'Справочник: Страна';
+COMMENT ON TABLE Country IS 'Справочник: Страна';
+CREATE UNIQUE INDEX IF NOT EXISTS country_unique_code ON Country (code);
 
+--Организация
 CREATE TABLE IF NOT EXISTS Organization (
 	id               INTEGER AUTO_INCREMENT (10000, 1) PRIMARY KEY,
 	name             VARCHAR(255) NOT NULL,
@@ -25,7 +28,10 @@ CREATE TABLE IF NOT EXISTS Organization (
 	is_active        BOOLEAN DEFAULT TRUE
 );
 COMMENT ON TABLE Organization IS 'Организация';
+CREATE INDEX IF NOT EXISTS organization_name_index ON Organization (name);
+CREATE UNIQUE INDEX IF NOT EXISTS organization_name_inn_unique_index ON Organization (name, inn);
 
+--Офис
 CREATE TABLE IF NOT EXISTS Office (
 	id               INTEGER AUTO_INCREMENT (10000, 1) PRIMARY KEY ,
 	name             VARCHAR(255) NOT NULL,
@@ -36,7 +42,9 @@ CREATE TABLE IF NOT EXISTS Office (
 	FOREIGN KEY (organization_id) REFERENCES organization (id) ON DELETE CASCADE
 );
 COMMENT ON TABLE Office IS 'Офис организации';
+CREATE INDEX IF NOT EXISTS office_name_index ON Office (name);
 
+--Документ, удостоверяющий личность
 CREATE TABLE IF NOT EXISTS Document (
 	id               INTEGER AUTO_INCREMENT (10000, 1) PRIMARY KEY,
 	doc_type_id      INTEGER,
@@ -45,7 +53,9 @@ CREATE TABLE IF NOT EXISTS Document (
 	FOREIGN KEY (doc_type_id) REFERENCES Doc_type (id) ON DELETE SET NULL
 );
 COMMENT ON TABLE Document IS 'Документ, удостоверяющий личность';
+CREATE INDEX IF NOT EXISTS document_number_index ON Document (doc_number);
 
+--Пользователь
 CREATE TABLE IF NOT EXISTS User (
 	id					     INTEGER AUTO_INCREMENT (10000, 1) PRIMARY KEY,
 	first_name			 VARCHAR(100) NOT NULL,
@@ -62,3 +72,4 @@ CREATE TABLE IF NOT EXISTS User (
 	FOREIGN KEY (office_id) REFERENCES Office (id) ON DELETE SET NULL
 );
 COMMENT ON TABLE User IS 'Пользователь';
+CREATE INDEX IF NOT EXISTS user_first_name_index ON User (first_name);

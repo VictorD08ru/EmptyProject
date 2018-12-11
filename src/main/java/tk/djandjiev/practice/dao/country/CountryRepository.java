@@ -10,21 +10,7 @@ public interface CountryRepository {
 
   /**
    * Получить все объекты Country.
-   * @return
+   * @return список стран из справочника.
    * */
   List<Country> getAll();
-
-  /**
-   * Получить объект Country по идентификатору.
-   * @param id
-   * @return
-   * */
-  Country get(Integer id);
-
-  /**
-   * Получить объект Country по коду.
-   * @param code
-   * @return
-   * */
-  Country getByCode(String code);
 }

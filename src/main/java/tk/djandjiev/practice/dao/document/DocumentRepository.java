@@ -10,13 +10,13 @@ public interface DocumentRepository {
 
   /**
    * Получить все объекты Document.
-   * @return
+   * @return список документов пользователей.
    * */
   List<Document> getAll();
 
   /**
    * Получить объект Document по идентификатору.
-   * @param id
+   * @param id идентификатор документа.
    * @return
    * */
   Document get(Integer id);
@@ -24,8 +24,8 @@ public interface DocumentRepository {
   /**
    * Сохранить Document.
    * @param doc
-   * @param docTypeId
-   * @return
+   * @param docTypeId идентификатор типа удостоверения личности.
+   * @return сохраненный объект.
    * */
   Document save(Document doc, Integer docTypeId);
 }

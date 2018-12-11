@@ -31,15 +31,15 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
     CriteriaQuery<Organization> criteriaQuery = builder.createQuery(Organization.class);
     Root<Organization> root = criteriaQuery.from(Organization.class);
     List<Predicate> predicates = new ArrayList<>();
-    predicates.add(builder.equal(root.get("name"), name));
+    predicates.add(builder.like(root.get("name"), name));
     if (inn != null && inn.length() <= 10 && !inn.matches(".*[\\D].*")) {
-      predicates.add(builder.equal(root.get("inn"), inn));
+      predicates.add(builder.like(root.get("inn"), inn + "%"));
     }
     if (isActive != null) {
       predicates.add(builder.equal(root.get("isActive"), isActive));
     }
     criteriaQuery.select(root).where(predicates.toArray(new Predicate[]{}));
-    criteriaQuery.orderBy(builder.desc(root.get("id")));
+    criteriaQuery.orderBy(builder.asc(root.get("id")));
     return em.createQuery(criteriaQuery).getResultList();
   }
 

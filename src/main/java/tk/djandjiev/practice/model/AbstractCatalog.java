@@ -11,19 +11,20 @@ import javax.validation.constraints.Size;
 @MappedSuperclass
 public abstract class AbstractCatalog extends AbstractBaseEntity {
   @NotBlank
-  @Size(min = 2, max = 10)
+  @Size(max = 10)
   @Column(name = "code", nullable = false)
   protected String code;
 
-  @Size(min = 2, max = 100)
+  @Size(max = 255)
   @Column
   protected String name;
 
   protected AbstractCatalog() {
   }
 
-  public AbstractCatalog(Integer id, String code, String name) {
-    super(id);
+  protected AbstractCatalog(
+      @NotBlank @Size(max = 10) String code,
+      @Size(max = 255) String name) {
     this.code = code;
     this.name = name;
   }

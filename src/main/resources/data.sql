@@ -1,9 +1,16 @@
-DELETE FROM Country;
 DELETE FROM Doc_type;
-DELETE FROM Document;
+DELETE FROM Country;
 DELETE FROM Organization;
 DELETE FROM Office;
+DELETE FROM Document;
 DELETE FROM User;
+
+ALTER TABLE Doc_type ALTER COLUMN id RESTART WITH 10000;
+ALTER TABLE Country ALTER COLUMN id RESTART WITH 10000;
+ALTER TABLE Organization ALTER COLUMN id RESTART WITH 10000;
+ALTER TABLE Office ALTER COLUMN id RESTART WITH 10000;
+ALTER TABLE Document ALTER COLUMN id RESTART WITH 10000;
+ALTER TABLE User ALTER COLUMN id RESTART WITH 10000;
 
 INSERT INTO Doc_type (code, name)
 VALUES
@@ -69,38 +76,44 @@ VALUES
 
 INSERT INTO Office (name, address, phone, is_active, organization_id)
 VALUES
-       ('Главный офис', --10000
+       --10000
+       ('Главный офис',
         'г. Москва, Зеленый просп, 10',
         '4951234567',
         TRUE,
-        '10000'),
-       ('Офис на Варшавском шоссе', --10001
+        10000),
+       --10001
+       ('Офис на Варшавском шоссе',
         'г. Москва, Варшавское шоссе, 141',
         '4951231122',
         TRUE,
         10000),
-       ('Офис на Ленинградском проспекте', --10002
+       --10002
+       ('Офис на Ленинградском проспекте',
         'г. Москва, Ленинградский просп, 9',
-        '4951231122',
+        '4951231133',
         TRUE,
         10000),
-       ('Головной офис', --10003
+       --10003
+       ('Головной офис',
         'г. Москва, Кусковая ул, 17',
         '4951234568',
         TRUE,
         10001),
-       ('Центральный офис', --10004
+       --10004
+       ('Центральный офис',
         'г. Москва, Беговой пр-д, 8',
         '4951234568',
         TRUE,
         10002),
-       ('Домовой на Ленинградке', --10005
+       --10005
+       ('Домовой на Ленинградке',
         'г. Москва, Ленинградский просп., 31А, стр. 1',
         '4951234569',
         TRUE,
         10003);
 	
-INSERT INTO document (doc_type_id, doc_number, issue_date)
+INSERT INTO Document (doc_type_id, doc_number, issue_date)
 VALUES
        (10009, '7701123123', DATE '2000-01-31'), --10000
        (10009, '7701123456', DATE '2000-02-01'), --10001
@@ -114,7 +127,7 @@ VALUES
        (10009, '2323101010', DATE '2010-10-10'), --10009
        (10009, '2323101101', DATE '2012-12-15'); --10010
 	
-INSERT INTO user
+INSERT INTO User
     (first_name,
      second_name,
      middle_name,
@@ -224,4 +237,3 @@ VALUES
         10000,
         TRUE,
         10005);
-  
