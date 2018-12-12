@@ -10,6 +10,7 @@ import javax.validation.constraints.Size;
  * */
 @MappedSuperclass
 public abstract class AbstractCatalog extends AbstractBaseEntity {
+
   @NotBlank
   @Size(max = 10)
   @Column(name = "code", nullable = false)

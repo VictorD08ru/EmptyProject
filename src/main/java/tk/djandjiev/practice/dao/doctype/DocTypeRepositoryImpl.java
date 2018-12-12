@@ -2,7 +2,7 @@ package tk.djandjiev.practice.dao.doctype;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import tk.djandjiev.practice.model.DocType;
@@ -15,7 +15,7 @@ import tk.djandjiev.practice.model.DocType;
 @Transactional(readOnly = true)
 public class DocTypeRepositoryImpl implements DocTypeRepository {
 
-  @Autowired
+  @PersistenceContext
   private EntityManager em;
 
   @Override

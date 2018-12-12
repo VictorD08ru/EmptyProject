@@ -22,6 +22,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = DocType.ALL_SORTED, query = "SELECT d FROM DocType d ORDER BY d.code")
 })
 public class DocType extends AbstractCatalog {
+
   public static final String ALL_SORTED = "DocType.getAllSorted";
 
   public DocType() {

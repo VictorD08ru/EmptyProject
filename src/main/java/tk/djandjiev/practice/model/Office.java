@@ -46,11 +46,9 @@ public class Office extends AbstractBaseEntity {
   @Column(name = "phone")
   private String phone;
 
-  @NotNull
   @Column(name = "is_active", nullable = false)
   private Boolean isActive;
 
-  @NotNull
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "organization_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
@@ -95,12 +93,12 @@ public class Office extends AbstractBaseEntity {
     this.phone = phone;
   }
 
-  public Boolean getActive() {
+  public Boolean getIsActive() {
     return isActive;
   }
 
-  public void setActive(Boolean active) {
-    isActive = active;
+  public void setIsActive(Boolean isActive) {
+    this.isActive = isActive;
   }
 
   public Organization getOrganization() {

@@ -2,7 +2,7 @@ package tk.djandjiev.practice.dao.document;
 
 import java.util.List;
 import javax.persistence.EntityManager;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import tk.djandjiev.practice.model.DocType;
@@ -17,7 +17,7 @@ import tk.djandjiev.practice.util.ValidationUtil;
 @Transactional(readOnly = true)
 public class DocumentRepositoryImpl implements DocumentRepository {
 
-  @Autowired
+  @PersistenceContext
   private EntityManager em;
 
   @Override

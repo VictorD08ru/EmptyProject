@@ -10,6 +10,7 @@ import tk.djandjiev.practice.to.DocTypeTO;
  * Данные справочников для тестирования.
  * */
 public class CatalogData {
+
   //Удостоверения личности
   public static final DocTypeTO DOC_TYPE_TO_03 = new DocTypeTO(
       "Свидетельство о рождении", "03");

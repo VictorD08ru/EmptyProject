@@ -1,9 +1,9 @@
 package tk.djandjiev.practice.service.organization;
 
 import java.util.List;
-import javax.validation.constraints.NotNull;
-import tk.djandjiev.practice.to.OrganizationTO;
-import tk.djandjiev.practice.to.SimplifiedOrganizationTO;
+import tk.djandjiev.practice.to.organization.OrganizationRequest;
+import tk.djandjiev.practice.to.organization.OrganizationTO;
+import tk.djandjiev.practice.to.organization.SimplifiedOrganizationTO;
 
 /**
  * Service для работы с Organization.
@@ -12,12 +12,10 @@ public interface OrganizationService {
 
   /**
    * Получить все объекты Organization.
-   * @param name название организации,
-   * @param inn ИНН организации,
-   * @param isActive работает ли организация.
-   * @return список организаций в соответствии с параметрами запроса
+   * @param request параметры запроса.
+   * @return упрощенный список организаций в соответствии с параметрами запроса.
    * */
-  List<SimplifiedOrganizationTO> getAll(@NotNull String name, String inn, Boolean isActive);
+  List<SimplifiedOrganizationTO> getAll(OrganizationRequest request);
 
   /**
    * Получить объект Organization по идентификатору.
@@ -27,10 +25,10 @@ public interface OrganizationService {
   OrganizationTO get(Integer id);
 
   /**
-   * Создать Organization.
+   * Сохранить Organization.
    * @param org объект для сохранения.
    * */
-  void create(OrganizationTO org);
+  void save(OrganizationTO org);
 
   /**
    * Обновить Organization.

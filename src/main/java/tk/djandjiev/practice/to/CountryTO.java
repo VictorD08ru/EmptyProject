@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
  * DTO сущности Country.
  * */
 public class CountryTO {
+
   @Size(max = 255)
   @NotBlank(message = "name cannot be null")
   private String name;
@@ -39,5 +40,13 @@ public class CountryTO {
 
   public void setCode(String code) {
     this.code = code;
+  }
+
+  @Override
+  public String toString() {
+    return "CountryTO{" +
+        "name='" + name + '\'' +
+        ", code='" + code + '\'' +
+        '}';
   }
 }

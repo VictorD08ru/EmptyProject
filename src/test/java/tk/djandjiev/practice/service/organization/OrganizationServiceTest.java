@@ -7,7 +7,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.djandjiev.practice.AbstractTest;
-import tk.djandjiev.practice.to.OrganizationTO;
+import tk.djandjiev.practice.to.organization.OrganizationTO;
 
 public class OrganizationServiceTest extends AbstractTest {
 
@@ -16,7 +16,7 @@ public class OrganizationServiceTest extends AbstractTest {
 
   @Test
   public void testGetAll() {
-    Assertions.assertThat(service.getAll("%ООО%", null, null))
+    Assertions.assertThat(service.getAll(ORGANIZATION_REQUEST))
         .usingFieldByFieldElementComparator()
         .isEqualTo(Arrays.asList(SIMPLE_ORG_0, SIMPLE_ORG_1, SIMPLE_ORG_3));
   }
@@ -28,10 +28,10 @@ public class OrganizationServiceTest extends AbstractTest {
 
   @Test
   public void testCreate() {
-    OrganizationTO created = getCreatedTO();
-    service.create(created);
+    OrganizationTO created = getCreated();
+    service.save(created);
     created.setId(NEW_ORG_ID4);
-    Assertions.assertThat(service.getAll("%ООО%", null, null))
+    Assertions.assertThat(service.getAll(ORGANIZATION_REQUEST))
         .usingFieldByFieldElementComparator()
         .isEqualTo(Arrays.asList(SIMPLE_ORG_0, SIMPLE_ORG_1, SIMPLE_ORG_3, created));
   }

@@ -9,7 +9,7 @@ import tk.djandjiev.practice.model.AbstractBaseEntity;
 public class ValidationUtil {
   private ValidationUtil() {}
 
-  public static <T extends AbstractBaseEntity> void notNull(T obj) {
+  public static <T> void notNull(T obj) {
     Assert.notNull(obj, obj + "must not be null");
   }
 

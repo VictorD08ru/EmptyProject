@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS Office (
 	name             VARCHAR(255) NOT NULL,
 	address          VARCHAR(255) NOT NULL,
 	phone            VARCHAR(20),
-	is_active        BOOLEAN NOT NULL,
-	organization_id  INTEGER NOT NULL,
+	is_active        BOOLEAN,
+	organization_id  INTEGER,
 	FOREIGN KEY (organization_id) REFERENCES organization (id) ON DELETE CASCADE
 );
 COMMENT ON TABLE Office IS 'Офис организации';

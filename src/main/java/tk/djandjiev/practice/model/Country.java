@@ -22,6 +22,7 @@ import javax.validation.constraints.Size;
     @NamedQuery(name = Country.ALL_SORTED, query = "SELECT c FROM Country c ORDER BY c.code")
 })
 public class Country extends AbstractCatalog {
+
   public static final String ALL_SORTED = "Country.getAllSorted";
 
   public Country() {

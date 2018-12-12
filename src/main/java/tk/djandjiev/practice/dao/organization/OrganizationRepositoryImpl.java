@@ -3,15 +3,15 @@ package tk.djandjiev.practice.dao.organization;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.validation.constraints.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import tk.djandjiev.practice.model.Organization;
+import tk.djandjiev.practice.to.organization.OrganizationRequest;
 import tk.djandjiev.practice.util.ValidationUtil;
 
 /**
@@ -22,21 +22,30 @@ import tk.djandjiev.practice.util.ValidationUtil;
 @Transactional(readOnly = true)
 public class OrganizationRepositoryImpl implements OrganizationRepository {
 
-  @Autowired
+  @PersistenceContext
   private EntityManager em;
 
   @Override
-  public List<Organization> getAll(@NotNull String name, String inn, Boolean isActive) {
+  public List<Organization> getAll(OrganizationRequest request) {
     CriteriaBuilder builder = em.getCriteriaBuilder();
     CriteriaQuery<Organization> criteriaQuery = builder.createQuery(Organization.class);
     Root<Organization> root = criteriaQuery.from(Organization.class);
     List<Predicate> predicates = new ArrayList<>();
-    predicates.add(builder.like(root.get("name"), name));
-    if (inn != null && inn.length() <= 10 && !inn.matches(".*[\\D].*")) {
-      predicates.add(builder.like(root.get("inn"), inn + "%"));
+    String name = request.getName();
+
+    if (name.isEmpty()) {
+      name = "%";
+    } else {
+      name = "%" + name + "%";
     }
-    if (isActive != null) {
-      predicates.add(builder.equal(root.get("isActive"), isActive));
+    predicates.add(builder.like(root.get("name"), name));
+    if (request.getInn() != null
+        && request.getInn().length() <= 10
+        && !request.getInn().matches(".*[\\D].*")) {
+      predicates.add(builder.like(root.get("inn"), request.getInn() + "%"));
+    }
+    if (request.getIsActive() != null) {
+      predicates.add(builder.equal(root.get("isActive"), request.getIsActive()));
     }
     criteriaQuery.select(root).where(predicates.toArray(new Predicate[]{}));
     criteriaQuery.orderBy(builder.asc(root.get("id")));

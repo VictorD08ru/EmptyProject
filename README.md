@@ -8,6 +8,12 @@ Used frameworks/API:
 
 Spring Boot, String Data JPA, Hibernate, JUnit 4
 
-Example request to running application:
+####Curl requests:
 
-http://localhost:8888/api/swagger-ui.html 
+**Get all countries**
+
+`curl -v http://localhost:8888/api/countries`
+
+**Get all document types**
+
+`curl -v http://localhost:8888/api/docs`

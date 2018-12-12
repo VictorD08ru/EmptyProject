@@ -1,4 +1,4 @@
-package tk.djandjiev.practice.to;
+package tk.djandjiev.practice.to.organization;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -7,6 +7,7 @@ import javax.validation.constraints.Size;
  * DTO сущности Organization.
  * */
 public class OrganizationTO {
+
   private Integer id;
 
   @Size(max = 255)

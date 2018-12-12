@@ -1,15 +1,15 @@
 package tk.djandjiev.practice.service.organization;
 
 import java.util.List;
-import javax.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.djandjiev.practice.dao.organization.OrganizationRepository;
 import tk.djandjiev.practice.model.Organization;
 import tk.djandjiev.practice.service.mapper.MapperFacade;
-import tk.djandjiev.practice.to.OrganizationTO;
-import tk.djandjiev.practice.to.SimplifiedOrganizationTO;
+import tk.djandjiev.practice.to.organization.OrganizationRequest;
+import tk.djandjiev.practice.to.organization.OrganizationTO;
+import tk.djandjiev.practice.to.organization.SimplifiedOrganizationTO;
 
 /**
  * Реализация интерфейса OrganizationService.
@@ -29,10 +29,8 @@ public class OrganizationServiceImpl implements OrganizationService {
   }
 
   @Override
-  public List<SimplifiedOrganizationTO> getAll(@NotNull String name, String inn, Boolean isActive) {
-    return facade.mapAsList(
-        repository.getAll(name, inn, isActive),
-        SimplifiedOrganizationTO.class);
+  public List<SimplifiedOrganizationTO> getAll(OrganizationRequest request) {
+    return facade.mapAsList(repository.getAll(request), SimplifiedOrganizationTO.class);
   }
 
   @Override
@@ -42,7 +40,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 
   @Override
   @Transactional
-  public void create(OrganizationTO org) {
+  public void save(OrganizationTO org) {
     Organization result = new Organization();
     facade.map(org, result);
     repository.save(result);
