@@ -2,6 +2,9 @@ package tk.djandjiev.practice.to.office;
 
 import javax.validation.constraints.Size;
 
+/**
+ * DTO упрощенной сущности Office.
+ * */
 public class SimplifiedOfficeTO {
 
   private Integer id;

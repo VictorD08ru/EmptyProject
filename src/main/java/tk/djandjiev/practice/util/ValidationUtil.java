@@ -7,6 +7,7 @@ import tk.djandjiev.practice.model.AbstractBaseEntity;
  * Класс упрощения валидации объектов.
  * */
 public class ValidationUtil {
+
   private ValidationUtil() {}
 
   public static <T> void notNull(T obj) {

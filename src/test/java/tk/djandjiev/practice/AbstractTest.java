@@ -10,5 +10,4 @@ import org.springframework.test.context.junit4.SpringRunner;
 @Sql(scripts = "classpath:data.sql", config = @SqlConfig(encoding = "UTF-8"))
 @SpringBootTest
 public abstract class AbstractTest {
-
 }

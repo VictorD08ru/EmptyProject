@@ -13,6 +13,10 @@ import tk.djandjiev.practice.to.office.OfficeTO;
 import tk.djandjiev.practice.to.office.SimplifiedOfficeTO;
 import tk.djandjiev.practice.util.ValidationUtil;
 
+/**
+ * Реализация интерфейса OfficeService.
+ * @see tk.djandjiev.practice.service.office.OfficeService
+ * */
 @Service
 public class OfficeServiceImpl implements OfficeService {
 
@@ -31,7 +35,12 @@ public class OfficeServiceImpl implements OfficeService {
 
   @Override
   public List<SimplifiedOfficeTO> getAll(OfficeRequest request) {
-    return facade.mapAsList(repository.getAll(request), SimplifiedOfficeTO.class);
+    return facade.mapAsList(
+        repository.getAll(request.getOrgId(),
+            request.getName(),
+            request.getPhone(),
+            request.getIsActive()),
+        SimplifiedOfficeTO.class);
   }
 
   @Override

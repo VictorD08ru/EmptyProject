@@ -1,9 +1,13 @@
 package tk.djandjiev.practice.to.office;
 
+import java.io.Serializable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class OfficeRequest {
+/**
+ * Сущность параметров запроса Office.
+ * */
+public class OfficeRequest implements Serializable {
 
   @NotNull
   private Integer orgId;

@@ -30,7 +30,9 @@ public class OrganizationServiceImpl implements OrganizationService {
 
   @Override
   public List<SimplifiedOrganizationTO> getAll(OrganizationRequest request) {
-    return facade.mapAsList(repository.getAll(request), SimplifiedOrganizationTO.class);
+    return facade.mapAsList(
+        repository.getAll(request.getName(), request.getInn(), request.getIsActive()),
+        SimplifiedOrganizationTO.class);
   }
 
   @Override

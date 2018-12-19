@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Version;
 
 /**
  * Базовая сущность - общий абстрактный предок для всех моделей с полем id.
@@ -18,6 +19,12 @@ public abstract class AbstractBaseEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected Integer id;
+
+  /**
+   * Служебное поле hibernate
+   */
+  @Version
+  protected Integer version;
 
   public Integer getId() {
     return id;

@@ -13,4 +13,11 @@ public interface CountryRepository {
    * @return список стран из справочника.
    * */
   List<Country> getAll();
+
+  /**
+   * Получить объект Country по коду.
+   * @param code
+   * @return
+   * */
+  Country getByCode(String code);
 }

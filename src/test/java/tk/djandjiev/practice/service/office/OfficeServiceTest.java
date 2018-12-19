@@ -4,6 +4,7 @@ import static tk.djandjiev.practice.util.OfficeData.*;
 
 import java.util.Arrays;
 import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import tk.djandjiev.practice.AbstractTest;
@@ -46,12 +47,16 @@ public class OfficeServiceTest extends AbstractTest {
   @Test
   public void testUpdate() {
     OfficeTO updated = service.get(OFFICE_ID5);
-    OfficeTO expected = service.get(OFFICE_ID5);
     updated.setIsActive(null);
+    String expectedPhone = updated.getPhone();
     updated.setPhone(null);
     updated.setAddress("г. Москва, Красная площадь, 2");
-    expected.setAddress("г. Москва, Красная площадь, 2");
     service.save(updated);
-    Assertions.assertThat(service.get(OFFICE_ID5)).isEqualToComparingFieldByField(expected);
+    OfficeTO actual = service.get(OFFICE_ID5);
+    updated.setPhone(expectedPhone);
+    updated.setIsActive(true);
+    Assertions.assertThat(actual).isEqualToComparingFieldByField(updated);
+    Assert.assertTrue(actual.getIsActive());
+    Assert.assertEquals(expectedPhone, actual.getPhone());
   }
 }

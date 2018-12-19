@@ -1,8 +1,8 @@
 package tk.djandjiev.practice.dao.office;
 
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import tk.djandjiev.practice.model.Office;
-import tk.djandjiev.practice.to.office.OfficeRequest;
 
 /**
  * Repository для работы с Office.
@@ -11,10 +11,13 @@ public interface OfficeRepository {
 
   /**
    * Получить все объекты Office по идентификатору Organization.
-   * @param request  параметры запроса.
+   * @param orgId идентификатор Organization.
+   * @param name название офиса.
+   * @param phone телефон офиса.
+   * @param isActive статус активности офиса (функционирует/не вункционирует).
    * @return список офисов организации.
    * */
-  List<Office> getAll(OfficeRequest request);
+  List<Office> getAll(@NotNull Integer orgId, String name, String phone, Boolean isActive);
 
   /**
    * Получить объект Office по собственному идентификатору и идентификатору Organization.

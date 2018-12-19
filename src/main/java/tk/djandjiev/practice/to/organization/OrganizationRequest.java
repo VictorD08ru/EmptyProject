@@ -1,11 +1,19 @@
 package tk.djandjiev.practice.to.organization;
 
+import java.io.Serializable;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-public class OrganizationRequest {
+/**
+ * Сущность параметров запроса Organization.
+ * */
+public class OrganizationRequest implements Serializable {
 
   @NotNull
+  @Size(max = 255)
   private String name;
+
+  @Size(max = 10)
   private String inn;
   private Boolean isActive;
 

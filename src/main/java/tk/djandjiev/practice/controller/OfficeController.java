@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import tk.djandjiev.practice.service.office.OfficeService;
+import tk.djandjiev.practice.to.message.DataMessage;
+import tk.djandjiev.practice.to.message.SuccessMessage;
 import tk.djandjiev.practice.to.office.OfficeRequest;
 import tk.djandjiev.practice.to.office.OfficeTO;
 import tk.djandjiev.practice.to.office.SimplifiedOfficeTO;
@@ -32,34 +33,44 @@ public class OfficeController {
   private OfficeService service;
 
   @GetMapping(value = "/list")
-  public List<SimplifiedOfficeTO> getAll(@RequestBody OfficeRequest request) {
+  public DataMessage<List<SimplifiedOfficeTO>> getAll(@RequestBody OfficeRequest request) {
     log.info("get all offices of organization with id: {}.", request.getOrgId());
-    return getAll(request);
+    List<SimplifiedOfficeTO> data = service.getAll(request);
+
+    return new DataMessage<>(data);
   }
 
   @GetMapping(value = "/{id}")
-  public OfficeTO get(@PathVariable("id") Integer id) {
+  public DataMessage<OfficeTO> get(@PathVariable("id") Integer id) {
     log.info("get office with id: {}.", id);
-    return service.get(id);
+    OfficeTO data = service.get(id);
+    if (data == null) {
+      throw new IllegalArgumentException("user with id: " + id + " not found");
+    }
+
+    return new DataMessage(data);
   }
 
-
   @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String update(@RequestBody OfficeTO officeTO) {
+  public SuccessMessage update(@RequestBody OfficeTO officeTO) {
     log.info("Update office with id: {}.", officeTO.getId());
     if (officeTO.getId() == null || officeTO.getName() == null || officeTO.getAddress() == null) {
       throw new IllegalArgumentException("required parameters are null.");
     }
     service.save(officeTO);
-    //TODO: replace stub
-    return "success";
+
+    return new SuccessMessage();
   }
 
   @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String save(@RequestBody OfficeTO officeTO) {
+  public SuccessMessage save(@RequestBody OfficeTO officeTO) {
     log.info("Create new office of organization with id: {}.");
+    if (officeTO.getOrgId() == null) {
+      throw new IllegalArgumentException("organization id can not be null.");
+    }
+
     service.save(officeTO);
-    //TODO: replace stub
-    return "success";
+
+    return new SuccessMessage();
   }
 }

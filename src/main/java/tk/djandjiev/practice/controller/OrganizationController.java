@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import tk.djandjiev.practice.service.organization.OrganizationService;
+import tk.djandjiev.practice.to.message.DataMessage;
+import tk.djandjiev.practice.to.message.SuccessMessage;
 import tk.djandjiev.practice.to.organization.OrganizationRequest;
 import tk.djandjiev.practice.to.organization.OrganizationTO;
 import tk.djandjiev.practice.to.organization.SimplifiedOrganizationTO;
@@ -31,30 +33,42 @@ public class OrganizationController {
   private OrganizationService service;
 
   @GetMapping(value = "/list")
-  public List<SimplifiedOrganizationTO> getAll(@RequestBody OrganizationRequest request) {
+  public DataMessage<List<SimplifiedOrganizationTO>> getAll(@RequestBody OrganizationRequest request) {
     log.info("getAll with specified parameters.");
-    return service.getAll(request);
+    if (request.getInn() != null && !request.getInn().isEmpty()) {
+      if (request.getInn().matches(".*[\\D].*")) {
+        throw new IllegalArgumentException("organization inn must contain only digits.");
+      }
+    }
+    List<SimplifiedOrganizationTO> data = service.getAll(request);
+
+    return new DataMessage<>(data);
   }
 
   @GetMapping(value = "/{id}")
-  public OrganizationTO get(@PathVariable("id") Integer id) {
+  public DataMessage<OrganizationTO> get(@PathVariable("id") Integer id) {
     log.info("get organization with id: {}.", id);
-    return service.get(id);
+    OrganizationTO data = service.get(id);
+    if (data == null) {
+      throw new IllegalArgumentException("user with id: " + id + " not found");
+    }
+
+    return new DataMessage<>(data);
   }
 
   @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String update(@RequestBody OrganizationTO org) {
+  public SuccessMessage update(@RequestBody OrganizationTO org) {
     log.info("Update organization with id: {}.", org.getId());
     service.update(org);
-    //TODO: replace stub
-    return "success";
+
+    return new SuccessMessage();
   }
 
   @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public String save(@RequestBody OrganizationTO org) {
+  public SuccessMessage save(@RequestBody OrganizationTO org) {
     log.info("Create new organization");
     service.save(org);
-    //TODO: replace stub
-    return "success";
+
+    return new SuccessMessage();
   }
 }

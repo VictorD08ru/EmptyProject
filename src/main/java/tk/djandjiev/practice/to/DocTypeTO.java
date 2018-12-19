@@ -1,12 +1,13 @@
 package tk.djandjiev.practice.to;
 
+import java.io.Serializable;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 /**
  * DTO сущности DocType.
  * */
-public class DocTypeTO {
+public class DocTypeTO implements Serializable {
 
   @Size(max = 255)
   @NotBlank(message = "name cannot be null")

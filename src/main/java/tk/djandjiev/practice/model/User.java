@@ -7,8 +7,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
@@ -21,15 +19,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(indexes = {
     @Index(
-        name = "user_first_name_index",
+        name = "ix_user_first_name",
         columnList = "first_name")
 })
-@NamedQueries({
-    @NamedQuery(name = User.ALL_SORTED, query = "SELECT u FROM User u ORDER BY u.firstName")
-})
 public class User extends AbstractBaseEntity {
-
-  public static final String ALL_SORTED = "User.getAllSorted";
 
   @NotBlank
   @Size(max = 100)
@@ -53,19 +46,18 @@ public class User extends AbstractBaseEntity {
   @Column(name = "phone")
   private String phone;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "doc_id")
   private Document document;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "country_id")
-  private Document country;
+  private Country country;
 
-  @NotNull
-  @Column(name = "is_defined", nullable = false)
-  private Boolean isDefined;
+  @Column(name = "is_identified")
+  private Boolean isIdentified;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "office_id")
   private Office office;
 
@@ -77,8 +69,8 @@ public class User extends AbstractBaseEntity {
       @Size(max = 100) String secondName,
       @Size(max = 100) String middleName,
       @NotBlank @Size(max = 255) String position,
-      @Size(max = 20) String phone, Document document, Document country,
-      @NotNull Boolean isDefined, Office office) {
+      @Size(max = 20) String phone, Document document, Country country,
+      @NotNull Boolean isIdentified, Office office) {
     this.firstName = firstName;
     this.secondName = secondName;
     this.middleName = middleName;
@@ -86,7 +78,7 @@ public class User extends AbstractBaseEntity {
     this.phone = phone;
     this.document = document;
     this.country = country;
-    this.isDefined = isDefined;
+    this.isIdentified = isIdentified;
     this.office = office;
   }
 
@@ -138,20 +130,20 @@ public class User extends AbstractBaseEntity {
     this.document = document;
   }
 
-  public Document getCountry() {
+  public Country getCountry() {
     return country;
   }
 
-  public void setCountry(Document country) {
+  public void setCountry(Country country) {
     this.country = country;
   }
 
-  public Boolean getDefined() {
-    return isDefined;
+  public Boolean getisIdentified() {
+    return isIdentified;
   }
 
-  public void setDefined(Boolean defined) {
-    isDefined = defined;
+  public void setisIdentified(Boolean isIdentified) {
+    this.isIdentified = isIdentified;
   }
 
   public Office getOffice() {

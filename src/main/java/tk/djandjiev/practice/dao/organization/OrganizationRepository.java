@@ -1,8 +1,8 @@
 package tk.djandjiev.practice.dao.organization;
 
 import java.util.List;
+import javax.validation.constraints.NotNull;
 import tk.djandjiev.practice.model.Organization;
-import tk.djandjiev.practice.to.organization.OrganizationRequest;
 
 /**
  * Repository для работы с Organization.
@@ -11,10 +11,12 @@ public interface OrganizationRepository {
 
   /**
    * Получить все объекты Organization.
-   * @param request параметры запроса.
+   * @param name название организации.
+   * @param inn ИНН организации.
+   * @param isActive статус активности организации (функционирует/не вункционирует).
    * @return список организаций в соответствии с параметрами запроса
    * */
-  List<Organization> getAll(OrganizationRequest request);
+  List<Organization> getAll(@NotNull String name, String inn, Boolean isActive);
 
   /**
    * Получить объект Organization по идентификатору.

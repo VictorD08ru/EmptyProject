@@ -18,14 +18,14 @@ public interface OfficeService {
   List<SimplifiedOfficeTO> getAll(OfficeRequest request);
 
   /**
-   * Получить объект Office по собственному идентификатору и идентификатору Organization.
+   * Получить объект Office по идентификатору.
    * @param id
    * @return
    * */
   OfficeTO get(Integer id);
 
   /**
-   * Сохранить новый объект Office.
+   * Сохранить объект Office.
    * @param officeTO
    * */
   void save(OfficeTO officeTO);

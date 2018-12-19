@@ -8,10 +8,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import tk.djandjiev.practice.model.Organization;
-import tk.djandjiev.practice.to.organization.OrganizationRequest;
 import tk.djandjiev.practice.util.ValidationUtil;
 
 /**
@@ -26,12 +26,11 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
   private EntityManager em;
 
   @Override
-  public List<Organization> getAll(OrganizationRequest request) {
+  public List<Organization> getAll(@NotNull String name, String inn, Boolean isActive) {
     CriteriaBuilder builder = em.getCriteriaBuilder();
     CriteriaQuery<Organization> criteriaQuery = builder.createQuery(Organization.class);
     Root<Organization> root = criteriaQuery.from(Organization.class);
     List<Predicate> predicates = new ArrayList<>();
-    String name = request.getName();
 
     if (name.isEmpty()) {
       name = "%";
@@ -39,13 +38,11 @@ public class OrganizationRepositoryImpl implements OrganizationRepository {
       name = "%" + name + "%";
     }
     predicates.add(builder.like(root.get("name"), name));
-    if (request.getInn() != null
-        && request.getInn().length() <= 10
-        && !request.getInn().matches(".*[\\D].*")) {
-      predicates.add(builder.like(root.get("inn"), request.getInn() + "%"));
+    if (inn != null) {
+      predicates.add(builder.like(root.get("inn"), inn + "%"));
     }
-    if (request.getIsActive() != null) {
-      predicates.add(builder.equal(root.get("isActive"), request.getIsActive()));
+    if (isActive != null) {
+      predicates.add(builder.equal(root.get("isActive"), isActive));
     }
     criteriaQuery.select(root).where(predicates.toArray(new Predicate[]{}));
     criteriaQuery.orderBy(builder.asc(root.get("id")));

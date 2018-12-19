@@ -1,11 +1,22 @@
 package tk.djandjiev.practice.to.office;
 
+import java.io.Serializable;
+import javax.validation.constraints.Size;
 
-public class OfficeTO {
+/**
+ * DTO сущности Office.
+ * */
+public class OfficeTO implements Serializable {
 
   private Integer id;
+
+  @Size(max = 255)
   private String name;
+
+  @Size(max = 255)
   private String address;
+
+  @Size(max = 20)
   private String phone;
   private Boolean isActive;
   private Integer orgId;
@@ -13,8 +24,9 @@ public class OfficeTO {
   public OfficeTO() {
   }
 
-  public OfficeTO(Integer id, String name, String address, String phone, Boolean isActive,
-      Integer orgId) {
+  public OfficeTO(Integer id, @Size(max = 255) String name,
+      @Size(max = 255) String address,
+      @Size(max = 20) String phone, Boolean isActive, Integer orgId) {
     this.id = id;
     this.name = name;
     this.address = address;

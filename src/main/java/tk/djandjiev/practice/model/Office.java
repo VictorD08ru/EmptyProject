@@ -1,13 +1,12 @@
 package tk.djandjiev.practice.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -21,16 +20,10 @@ import org.hibernate.annotations.OnDeleteAction;
 @Entity
 @Table(indexes = {
     @Index(
-        name = "office_name_index",
+        name = "ix_office_name",
         columnList = "name")
 })
-@NamedQueries({
-    @NamedQuery(name = Office.ALL_SORTED, 
-        query = "SELECT o FROM Office o WHERE o.organization.id = ?1 ORDER BY o.name")
-})
 public class Office extends AbstractBaseEntity {
-  
-  public static final String ALL_SORTED = "Office.getAllSorted";
 
   @NotBlank
   @Size(max = 255)
@@ -49,7 +42,7 @@ public class Office extends AbstractBaseEntity {
   @Column(name = "is_active", nullable = false)
   private Boolean isActive;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
   @JoinColumn(name = "organization_id", nullable = false)
   @OnDelete(action = OnDeleteAction.CASCADE)
   private Organization organization;

@@ -13,6 +13,7 @@ import tk.djandjiev.practice.service.country.CountryService;
 import tk.djandjiev.practice.service.doctype.DocTypeService;
 import tk.djandjiev.practice.to.CountryTO;
 import tk.djandjiev.practice.to.DocTypeTO;
+import tk.djandjiev.practice.to.message.DataMessage;
 
 @RestController
 @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,14 +27,18 @@ public class CatalogController {
   private DocTypeService docTypeService;
 
   @GetMapping(value = "/countries")
-  public List<CountryTO> getAllCountries() {
+  public DataMessage<List<CountryTO>> getAllCountries() {
     log.info("get all countries");
-    return countryService.getAll();
+    List<CountryTO> data = countryService.getAll();
+
+    return new DataMessage<>(data);
   }
 
   @GetMapping(value = "/docs")
-  public List<DocTypeTO> getAllDocTypes() {
+  public DataMessage<List<DocTypeTO>> getAllDocTypes() {
     log.info("get all document types");
-    return docTypeService.getAll();
+    List<DocTypeTO> data = docTypeService.getAll();
+
+    return new DataMessage<>(data);
   }
 }

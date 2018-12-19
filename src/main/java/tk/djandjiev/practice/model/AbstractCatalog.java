@@ -1,7 +1,7 @@
 package tk.djandjiev.practice.model;
 
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -13,11 +13,11 @@ public abstract class AbstractCatalog extends AbstractBaseEntity {
 
   @NotBlank
   @Size(max = 10)
-  @Column(name = "code", nullable = false)
+  @Column(name = "code", nullable = false, insertable = false, updatable = false)
   protected String code;
 
   @Size(max = 255)
-  @Column
+  @Column(name = "name", nullable = false, insertable = false, updatable = false)
   protected String name;
 
   protected AbstractCatalog() {

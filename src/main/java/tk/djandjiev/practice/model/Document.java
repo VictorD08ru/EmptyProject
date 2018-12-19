@@ -2,15 +2,14 @@ package tk.djandjiev.practice.model;
 
 import java.time.LocalDate;
 import javax.persistence.Column;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -20,19 +19,24 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Table(indexes = {
     @Index(
-        name = "document_number_index",
-        columnList = "doc_number")
+        name = "ix_document_number",
+        columnList = "doc_number"),
+    @Index(
+        name = "ux_document_type_numbe",
+        columnList = "doc_type_id, doc_number"),
 })
 @NamedQueries({
-    @NamedQuery(name = Document.ALL_SORTED, query = "SELECT d FROM Document d ORDER BY d.id")
+    @NamedQuery(name = Document.ALL_SORTED, query = "SELECT d FROM Document d ORDER BY d.id"),
+    @NamedQuery(name = Document.GET_BY_CODE_AND_NUM,
+        query = "SELECT d FROM Document d WHERE d.type.code = ?1 AND d.number = ?2")
 })
 public class Document extends AbstractBaseEntity {
 
   public static final String ALL_SORTED = "Document.getAllSorted";
+  public static final String GET_BY_CODE_AND_NUM = "Document.getByCodeAndNumber";
 
-  @NotNull
-  @OneToOne(cascade = CascadeType.DETACH)
-  @JoinColumn(name = "doc_type_id", nullable = false)
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "doc_type_id")
   private DocType type;
 
   @Size(max = 20)
@@ -46,8 +50,7 @@ public class Document extends AbstractBaseEntity {
   public Document() {
   }
 
-  public Document(
-      @NotNull DocType type, @Size(max = 20) String number, LocalDate issueDate) {
+  public Document(DocType type, @Size(max = 20) String number, LocalDate issueDate) {
     this.type = type;
     this.number = number;
     this.issueDate = issueDate;

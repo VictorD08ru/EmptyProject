@@ -13,10 +13,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(indexes = {
     @Index(
-        name = "organization_name_index",
+        name = "ix_organization_name",
         columnList = "name"),
     @Index(
-        name = "organization_name_inn_unique_index",
+        name = "ux_organization_name_inn",
         columnList = "name, inn",
         unique = true)
 })

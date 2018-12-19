@@ -14,22 +14,25 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(indexes = {
     @Index(
-        name = "country_unique_code",
+        name = "ux_country_code",
         columnList = "code",
         unique = true)
 })
 @NamedQueries({
-    @NamedQuery(name = Country.ALL_SORTED, query = "SELECT c FROM Country c ORDER BY c.code")
+    @NamedQuery(name = Country.ALL_SORTED, query = "SELECT c FROM Country c ORDER BY c.code"),
+    @NamedQuery(name = Country.GET_BY_CODE,
+        query = "SELECT c FROM Country c WHERE c.code = ?1")
 })
 public class Country extends AbstractCatalog {
 
   public static final String ALL_SORTED = "Country.getAllSorted";
+  public static final String GET_BY_CODE = "Country.getByCode";
 
   public Country() {
   }
 
   public Country(
-      @NotBlank @Size(min = 2, max = 10) String code,
+      @NotBlank @Size(max = 10) String code,
       @Size(min = 2, max = 255) String name) {
     super(code, name);
   }
