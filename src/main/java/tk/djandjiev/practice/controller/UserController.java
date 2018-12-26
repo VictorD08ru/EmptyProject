@@ -2,7 +2,6 @@ package tk.djandjiev.practice.controller;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import java.util.List;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,7 @@ public class UserController {
   @Autowired
   private UserService service;
 
-  @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "data")
-  @GetMapping("/list")
+  @PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE)
   public DataMessage<List<SimplifiedUserTO>> getAll(@RequestBody UserRequest request) {
     log.info("get all users with specified parameters with office id: {}.", request.getOfficeId());
     List<SimplifiedUserTO> data = service.getAll(request);

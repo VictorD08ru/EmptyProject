@@ -7,6 +7,10 @@ import tk.djandjiev.practice.dao.country.CountryRepository;
 import tk.djandjiev.practice.service.mapper.MapperFacade;
 import tk.djandjiev.practice.to.CountryTO;
 
+/**
+ * Реализация интерфейса CountryService.
+ * @see tk.djandjiev.practice.service.country.CountryService
+ * */
 @Service
 public class CountryServiceImpl implements CountryService {
 

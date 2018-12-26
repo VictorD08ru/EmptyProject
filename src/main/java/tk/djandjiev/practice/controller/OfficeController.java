@@ -32,7 +32,7 @@ public class OfficeController {
   @Autowired
   private OfficeService service;
 
-  @GetMapping(value = "/list")
+  @PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE)
   public DataMessage<List<SimplifiedOfficeTO>> getAll(@RequestBody OfficeRequest request) {
     log.info("get all offices of organization with id: {}.", request.getOrgId());
     List<SimplifiedOfficeTO> data = service.getAll(request);

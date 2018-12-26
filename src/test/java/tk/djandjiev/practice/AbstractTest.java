@@ -8,6 +8,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:data.sql", config = @SqlConfig(encoding = "UTF-8"))
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public abstract class AbstractTest {
 }

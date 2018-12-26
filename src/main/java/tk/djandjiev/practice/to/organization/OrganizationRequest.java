@@ -53,4 +53,13 @@ public class OrganizationRequest implements Serializable {
   public void setIsActive(Boolean isActive) {
     this.isActive = isActive;
   }
+
+  @Override
+  public String toString() {
+    return "OrganizationRequest{" +
+        "name='" + name + '\'' +
+        ", inn='" + inn + '\'' +
+        ", isActive=" + isActive +
+        '}';
+  }
 }

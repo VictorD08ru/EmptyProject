@@ -32,7 +32,7 @@ public class OrganizationController {
   @Autowired
   private OrganizationService service;
 
-  @GetMapping(value = "/list")
+  @PostMapping(value = "/list", consumes = MediaType.APPLICATION_JSON_VALUE)
   public DataMessage<List<SimplifiedOrganizationTO>> getAll(@RequestBody OrganizationRequest request) {
     log.info("getAll with specified parameters.");
     if (request.getInn() != null && !request.getInn().isEmpty()) {

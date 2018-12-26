@@ -43,7 +43,6 @@ public class UserTO implements Serializable {
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
   private LocalDate docDate;
 
-  @JsonProperty(access = JsonProperty.Access.READ_ONLY)
   @Size(max = 255)
   private String citizenshipName;
 

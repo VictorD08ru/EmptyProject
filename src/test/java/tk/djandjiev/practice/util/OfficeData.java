@@ -5,6 +5,9 @@ import static tk.djandjiev.practice.util.OrganizationData.*;
 import tk.djandjiev.practice.to.office.OfficeTO;
 import tk.djandjiev.practice.to.office.SimplifiedOfficeTO;
 
+/**
+ * Данные Office для тестирования.
+ * */
 public class OfficeData {
   public static final Integer OFFICE_ID0 = 10000;
   public static final Integer OFFICE_ID1 = 10001;
