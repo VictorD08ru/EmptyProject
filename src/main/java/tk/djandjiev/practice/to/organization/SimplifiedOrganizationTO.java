@@ -11,6 +11,7 @@ public class SimplifiedOrganizationTO {
 
   @Size(max = 255)
   private String name;
+
   private Boolean isActive;
 
   public SimplifiedOrganizationTO() {

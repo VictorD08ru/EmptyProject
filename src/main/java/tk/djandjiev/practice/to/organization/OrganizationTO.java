@@ -1,33 +1,37 @@
 package tk.djandjiev.practice.to.organization;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import tk.djandjiev.practice.util.View;
 
 /**
  * DTO сущности Organization.
  * */
 public class OrganizationTO {
 
+  @NotNull(groups = View.Updateable.class, message = "id can not be null")
   private Integer id;
 
   @Size(max = 255)
-  @NotBlank(message = "name cannot be null")
+  @NotBlank(message = "name can not be null")
   private String name;
 
   @Size(max = 255)
-  @NotBlank(message = "full name cannot be null")
+  @NotBlank(message = "full name can not be null")
   private String fullName;
 
-  @Size(max = 10)
-  @NotBlank(message = "INN cannot be null")
+  @Pattern(regexp = "\\d{10}", message = "field INN must contain only 10 digits")
+  @NotBlank(message = "INN can not be null")
   private String inn;
 
-  @Size(max = 9)
-  @NotBlank(message = "KPP cannot be null")
+  @Pattern(regexp = "\\d{9}", message = "field KPP must contain only 9 digits")
+  @NotBlank(message = "KPP can not be null")
   private String kpp;
 
   @Size(max = 255)
-  @NotBlank(message = "address cannot be null")
+  @NotBlank(message = "address can not be null")
   private String address;
 
   @Size(max = 20)

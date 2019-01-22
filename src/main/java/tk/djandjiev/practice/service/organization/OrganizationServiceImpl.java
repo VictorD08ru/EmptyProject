@@ -37,7 +37,8 @@ public class OrganizationServiceImpl implements OrganizationService {
 
   @Override
   public OrganizationTO get(Integer id) {
-    return facade.map(repository.get(id), OrganizationTO.class);
+    Organization org = repository.get(id);
+    return org == null ? null : facade.map(org, OrganizationTO.class);
   }
 
   @Override

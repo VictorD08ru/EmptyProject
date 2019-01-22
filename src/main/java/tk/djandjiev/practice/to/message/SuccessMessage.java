@@ -1,5 +1,8 @@
 package tk.djandjiev.practice.to.message;
 
+/**
+ * Класс-обертка сообщения об успешном выполнении операции.
+ * */
 public class SuccessMessage {
 
   private String result = "success";

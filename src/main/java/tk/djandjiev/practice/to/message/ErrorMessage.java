@@ -1,5 +1,8 @@
 package tk.djandjiev.practice.to.message;
 
+/**
+ * Класс-обертка для сообщений об ошибках.
+ * */
 public class ErrorMessage {
 
   private String error;

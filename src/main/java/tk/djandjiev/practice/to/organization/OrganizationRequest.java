@@ -2,6 +2,7 @@ package tk.djandjiev.practice.to.organization;
 
 import java.io.Serializable;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -9,12 +10,14 @@ import javax.validation.constraints.Size;
  * */
 public class OrganizationRequest implements Serializable {
 
-  @NotNull
+  @NotNull(message = "name can not be null")
   @Size(max = 255)
   private String name;
 
+  @Pattern(regexp = "\\d{0,10}", message = "INN must contain only digits")
   @Size(max = 10)
   private String inn;
+
   private Boolean isActive;
 
   public OrganizationRequest() {

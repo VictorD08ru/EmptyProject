@@ -6,15 +6,17 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
+import tk.djandjiev.practice.util.View;
 
 /**
  * DTO сущности User.
  * */
 public class UserTO implements Serializable {
 
+  @NotNull(groups = View.Updateable.class, message = "id can not be null")
   private Integer id;
 
-  @NotNull
+  @NotNull(message = "firstName can not be null")
   @Size(max = 100)
   private String firstName;
 
@@ -24,7 +26,7 @@ public class UserTO implements Serializable {
   @Size(max = 100)
   private String middleName;
 
-  @NotNull
+  @NotNull(message = "position can not be null")
   @Size(max = 255)
   private String position;
 
@@ -48,7 +50,10 @@ public class UserTO implements Serializable {
 
   @Size(max = 10)
   private String citizenshipCode;
+
   private Boolean isIdentified;
+
+  @NotNull(groups = View.Saveable.class, message = "officeId can not be null")
   private Integer officeId;
 
   public UserTO() {

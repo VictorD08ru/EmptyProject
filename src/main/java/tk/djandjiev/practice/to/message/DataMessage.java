@@ -1,6 +1,10 @@
 package tk.djandjiev.practice.to.message;
 
+/**
+ * Класс-обертка для выходных данных.
+ * */
 public class DataMessage<T> {
+
   private T data;
 
   public DataMessage() {

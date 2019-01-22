@@ -11,6 +11,7 @@ public class SimplifiedOfficeTO {
 
   @Size(max = 255)
   private String name;
+
   private Boolean isActive;
 
   public SimplifiedOfficeTO() {

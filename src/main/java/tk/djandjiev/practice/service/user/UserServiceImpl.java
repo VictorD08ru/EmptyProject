@@ -60,7 +60,8 @@ public class UserServiceImpl implements UserService {
   @Override
   @Transactional(readOnly = true)
   public UserTO get(Integer id) {
-    return facade.map(userRepository.get(id), UserTO.class);
+    User user = userRepository.get(id);
+    return user == null ? null : facade.map(user, UserTO.class);
   }
 
   @Override

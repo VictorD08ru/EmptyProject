@@ -46,7 +46,7 @@ public class OfficeServiceImpl implements OfficeService {
   @Override
   public OfficeTO get(Integer id) {
     Office office = repository.get(id);
-    return facade.map(office, OfficeTO.class);
+    return office == null ? null : facade.map(office, OfficeTO.class);
   }
 
   @Override

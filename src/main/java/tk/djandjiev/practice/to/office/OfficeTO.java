@@ -1,24 +1,32 @@
 package tk.djandjiev.practice.to.office;
 
 import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import tk.djandjiev.practice.util.View;
 
 /**
  * DTO сущности Office.
  * */
 public class OfficeTO implements Serializable {
 
+  @NotNull(groups = View.Updateable.class, message = "id can not be null")
   private Integer id;
 
+  @NotNull(groups = View.Updateable.class, message = "name can not be null")
   @Size(max = 255)
   private String name;
 
+  @NotNull(groups = View.Updateable.class, message = "address can not be null")
   @Size(max = 255)
   private String address;
 
   @Size(max = 20)
   private String phone;
+
   private Boolean isActive;
+
+  @NotNull(groups = View.Saveable.class, message = "orgId can not be null")
   private Integer orgId;
 
   public OfficeTO() {

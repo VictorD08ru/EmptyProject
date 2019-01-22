@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
  * */
 public class OfficeRequest implements Serializable {
 
-  @NotNull
+  @NotNull(message = "field 'orgId' must not be null")
   private Integer orgId;
 
   @Size(max = 255)
@@ -17,6 +17,7 @@ public class OfficeRequest implements Serializable {
 
   @Size(max = 20)
   private String phone;
+
   private Boolean isActive;
 
   public OfficeRequest() {

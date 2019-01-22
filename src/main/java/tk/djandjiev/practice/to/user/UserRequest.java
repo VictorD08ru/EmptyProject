@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
  * */
 public class UserRequest implements Serializable {
 
-  @NotNull
+  @NotNull(message = "officeId can not be null")
   private Integer officeId;
 
   @Size(max = 100)

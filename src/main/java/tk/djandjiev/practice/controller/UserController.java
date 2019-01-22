@@ -3,9 +3,11 @@ package tk.djandjiev.practice.controller;
 import static org.slf4j.LoggerFactory.getLogger;
 
 import java.util.List;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +20,7 @@ import tk.djandjiev.practice.to.message.SuccessMessage;
 import tk.djandjiev.practice.to.user.SimplifiedUserTO;
 import tk.djandjiev.practice.to.user.UserRequest;
 import tk.djandjiev.practice.to.user.UserTO;
+import tk.djandjiev.practice.util.View;
 
 @RestController
 @RequestMapping(value = UserController.USER_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,7 +38,7 @@ public class UserController {
     log.info("get all users with specified parameters with office id: {}.", request.getOfficeId());
     List<SimplifiedUserTO> data = service.getAll(request);
 
-    return new DataMessage(data);
+    return new DataMessage<>(data);
   }
 
   @GetMapping(value = "/{id}")
@@ -46,26 +49,20 @@ public class UserController {
       throw new IllegalArgumentException("user with id: " + id + " not found");
     }
 
-    return new DataMessage(data);
+    return new DataMessage<>(data);
   }
 
   @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public SuccessMessage update(@RequestBody UserTO userTO) {
+  public SuccessMessage update(@Validated(View.Updateable.class) @RequestBody UserTO userTO) {
     log.info("Update user with id: {}.", userTO.getId());
-    if (userTO.getId() == null || userTO.getFirstName() == null || userTO.getPosition() == null) {
-      throw new IllegalArgumentException("required parameters are null.");
-    }
     service.save(userTO);
 
     return new SuccessMessage();
   }
 
   @PostMapping(value = "/save", consumes = MediaType.APPLICATION_JSON_VALUE)
-  public SuccessMessage save(@RequestBody UserTO userTO) {
+  public SuccessMessage save(@Validated(View.Saveable.class) @RequestBody UserTO userTO) {
     log.info("Create new office of organization with id: {}.");
-    if (userTO.getFirstName() == null || userTO.getPosition() == null) {
-      throw new IllegalArgumentException("required parameters are null.");
-    }
     service.save(userTO);
 
     return new SuccessMessage();
