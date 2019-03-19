@@ -2,7 +2,7 @@
 
 Repo Link:
 
-https://github.com/VictorD08ru/Organizations
+https://github.com/djandjiev/Organizations/
 
 Used frameworks/API:
 
